@@ -22,7 +22,6 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && loca
 
 # ENTRYPOINT
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh 
-COPY .bashrc /work/.bashrc
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD [ "/bin/bash" ]
