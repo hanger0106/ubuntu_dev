@@ -1,5 +1,5 @@
-# Start with Ubuntu 22.04 LTS.
-FROM ubuntu:22.04
+# Start with Ubuntu 16.04 LTS.
+FROM ubuntu:16.04
 ARG WORKDIR="/work"
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python2 unzip rsync tzdata
