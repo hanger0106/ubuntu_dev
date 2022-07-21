@@ -15,3 +15,7 @@ Or, add current dir to docker:
 ( '.bashrc' file will be called if you do have it in $PWD:/work )
 
     docker run -it --rm  -v ${PWD}:/work -e USER_ID=${UID} ubuntu_dev bash
+
+Or, when no need --rm option, simple remove it, remember to kill it by your own
+    
+    docker run -it -v ${PWD}:/work -e USER_ID=${UID} ubuntu_dev bash
