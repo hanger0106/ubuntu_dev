@@ -20,6 +20,10 @@ RUN TZ=Asia/Taipei \
     && dpkg-reconfigure -f noninteractive tzdata
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
 
+# make /bin/sh symlink to bash instead of dash:
+RUN echo "dash dash/sh boolean false" | debconf-set-selections
+RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
+
 # ENTRYPOINT
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh 
 RUN chmod +x /usr/local/bin/entrypoint.sh
