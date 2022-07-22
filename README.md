@@ -4,9 +4,7 @@
     git clone https://github.com/hanger0106/ubuntu_dev.git
     
 ### build docker image from git:
-    docker build --tag ubuntu_dev https://github.com/hanger0106/ubuntu_dev.git#main:.
-    
-    docker build --tag ubuntu16_dev https://github.com/hanger0106/ubuntu_dev.git#16.04:.
+    docker build --tag ubuntu_dev https://github.com/hanger0106/ubuntu_dev.git#main:.    
 
 ### build docker image from local:
     docker build --tag ubuntu_dev .
@@ -24,4 +22,3 @@ Or, when no need --rm option, simple remove it, remember to kill it by your own
     
 ### Push code:
     git push
-    git push --set-upstream origin 16.04
