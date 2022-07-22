@@ -31,3 +31,4 @@ ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD [ "/bin/bash" ]
 WORKDIR $WORKDIR
 ENV WORKDIR=$WORKDIR
+RUN chmod 777 /opt
