@@ -1,8 +1,8 @@
-# Start with Ubuntu 22.04 LTS.
-FROM ubuntu:22.04
+# Start with Ubuntu LTS.
+FROM i386/ubuntu:16.04
 ARG WORKDIR="/work"
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python2 unzip rsync tzdata
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python unzip rsync tzdata
 RUN apt-get clean all
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 #RUN useradd -m docker --home-dir $WORKDIR && echo "docker:docker" | chpasswd && adduser docker sudo
@@ -32,3 +32,8 @@ CMD [ "/bin/bash" ]
 WORKDIR $WORKDIR
 ENV WORKDIR=$WORKDIR
 RUN chmod 777 /opt
+
+
+#DOCKER_IMAGE=ubuntu386_dev
+#docker build  --tag ${DOCKER_IMAGE} .
+#docker run -it --rm  -e USER_ID=${UID}  ${DOCKER_IMAGE} bash
