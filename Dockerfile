@@ -33,7 +33,8 @@ WORKDIR $WORKDIR
 ENV WORKDIR=$WORKDIR
 RUN chmod 777 /opt
 
-
+#example usage:
 #DOCKER_IMAGE=ubuntu386_dev
-#docker build  --tag ${DOCKER_IMAGE} .
-#docker run -it --rm  -e USER_ID=${UID}  ${DOCKER_IMAGE} bash
+#docker build --tag ${DOCKER_IMAGE} .
+#docker build --tag ${DOCKER_IMAGE} https://github.com/hanger0106/ubuntu_dev.git#16.04_386:.
+#docker run -it --rm  -v /tmp:/tmp -e USER_ID=1003 -e USER_NAME="user" ${DOCKER_IMAGE} bash
