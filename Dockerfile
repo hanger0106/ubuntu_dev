@@ -5,7 +5,7 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python unzip rsync tzdata
 RUN apt-get clean all
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-#RUN useradd -m docker --home-dir $WORKDIR && echo "docker:docker" | chpasswd && adduser docker sudo
+RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo
 
 # Install gosu
 RUN apt-get -y install curl \
