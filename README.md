@@ -22,3 +22,6 @@ Or, when no need --rm option, simple remove it, remember to kill it by your own
     
 ### Push code:
     git push
+
+### Switch to Ubuntu 16.04 branch:
+    git checkout -b 16.04 origin/16.04
