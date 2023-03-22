@@ -2,7 +2,7 @@
 
 ### get code:
     git clone https://github.com/hanger0106/ubuntu_dev.git
-    git checkout 16.04
+    git checkout -b 16.04 origin/16.04
     
 ### build docker image from git:
     docker build --tag ubuntu_dev:16 https://github.com/hanger0106/ubuntu_dev.git#16.04:.
