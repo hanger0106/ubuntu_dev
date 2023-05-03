@@ -35,7 +35,7 @@ ENV WORKDIR=$WORKDIR
 RUN chmod 777 /opt
 
 #python3 package
-RUN apt-get install python3-pip
+RUN apt-get install -y python3-pip
 RUN python3 -m pip install cryptography
 #example usage:
 #DOCKER_IMAGE=ubuntu_dev
