@@ -4,6 +4,9 @@ ARG WORKDIR="/work"
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python2 unzip rsync tzdata
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common libssl-dev gawk device-tree-compiler autoconf sbsigntool default-jdk flex bison software-properties-common
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python2 1 \
+    && update-alternatives --install /usr/bin/python python /usr/bin/python3 2 \
+    && update-alternatives --set python /usr/bin/python2
 RUN apt-get clean all
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo
