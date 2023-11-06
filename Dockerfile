@@ -2,7 +2,7 @@
 FROM ubuntu:18.04
 ARG WORKDIR="/work"
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python2 unzip rsync tzdata
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python python3 unzip rsync tzdata
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common libssl-dev gawk device-tree-compiler autoconf sbsigntool default-jdk flex bison software-properties-common
 RUN apt-get clean all
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
