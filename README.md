@@ -25,3 +25,13 @@ Or, when no need --rm option, simple remove it, remember to kill it by your own
 
 ### Switch to Ubuntu 16.04 branch:
     git checkout -b 16.04 origin/16.04
+$ git branch -a
+* main
+  remotes/origin/16.04
+  remotes/origin/16.04_386
+  remotes/origin/18.04
+  remotes/origin/20.04
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+
+$ git checkout --track origin/16.04
