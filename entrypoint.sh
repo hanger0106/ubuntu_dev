@@ -7,5 +7,6 @@ if [ $ID -eq `id -u` ]; then
     exec "$@"
 else
     useradd --shell /bin/bash --home-dir $WORKDIR -u $ID $USER
+    usermod -u $ID $USER
     exec gosu $ID "$@"
 fi
