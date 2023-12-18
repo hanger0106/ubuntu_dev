@@ -34,7 +34,7 @@ RUN echo "dash dash/sh boolean false" | debconf-set-selections
 RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 
 #python3 package
-RUN apt-get install -y python3-pip \
+RUN apt update && apt-get install -y python3-pip \
     && python3 -m pip install cryptography
 
 #make python2 default
