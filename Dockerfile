@@ -2,8 +2,9 @@
 FROM ubuntu:22.04
 ARG WORKDIR="/work"
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python2 unzip rsync tzdata
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common libssl-dev gawk device-tree-compiler autoconf sbsigntool default-jdk flex bison software-properties-common
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python2 python3 python3-pip python3-pexpect unzip rsync tzdata
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common libssl-dev gawk device-tree-compiler autoconf sbsigntool flex bison
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y default-jdk
 RUN apt-get clean all
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo
@@ -35,7 +36,7 @@ ENV WORKDIR=$WORKDIR
 RUN chmod 777 /opt
 
 #example usage:
-#DOCKER_IMAGE=ubuntu_dev
+#DOCKER_IMAGE=ubuntu_dev:22
 #docker build --tag ${DOCKER_IMAGE} .
 #docker build --tag ${DOCKER_IMAGE} https://github.com/hanger0106/ubuntu_dev.git#main:.
 #docker run -it --rm  -v /tmp:/tmp -e USER_ID=1003 -e USER_NAME="user" ${DOCKER_IMAGE} bash
