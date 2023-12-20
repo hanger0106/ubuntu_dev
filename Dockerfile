@@ -35,6 +35,9 @@ ENV WORKDIR=$WORKDIR
 #python3 package
 RUN python3 -m pip install cryptography
 
+#perl package
+RUN apt-get install -y libclone-perl libyaml-perl libmoo-perl liblist-moreutils-perl libdata-compare-perl libmoosex-role-strict-perl libnamespace-autoclean-perl
+
 #make python2 default
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python2 1 \
     && update-alternatives --install /usr/bin/python python /usr/bin/python3 2 \
