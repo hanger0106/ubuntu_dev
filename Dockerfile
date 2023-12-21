@@ -34,6 +34,10 @@ WORKDIR $WORKDIR
 ENV WORKDIR=$WORKDIR
 RUN chmod 777 /opt
 
+#default commiter
+RUN git config --global user.email "root@project"
+RUN git config --global user.name "root"
+
 #example usage:
 #DOCKER_IMAGE=ubuntu386_dev
 #docker build --tag ${DOCKER_IMAGE} .
