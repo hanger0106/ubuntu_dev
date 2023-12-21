@@ -33,15 +33,18 @@ ENV WORKDIR=$WORKDIR
 #RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 
 #python3 package
-RUN python3 -m pip install cryptography
+RUN python3 -m pip install cryptography pyyaml filelock
 
 #perl package
 RUN apt-get install -y libclone-perl libyaml-perl libmoo-perl liblist-moreutils-perl libdata-compare-perl libmoosex-role-strict-perl libnamespace-autoclean-perl
 
-#make python2 default
+#python2 package
+#RUN apt-get install -y python-yaml 
+
+##make python3 default
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python2 1 \
     && update-alternatives --install /usr/bin/python python /usr/bin/python3 2 \
-    && update-alternatives --set python /usr/bin/python2
+    && update-alternatives --set python /usr/bin/python3
 
 #Other project depend package
 RUN chmod 777 /opt
