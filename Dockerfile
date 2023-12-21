@@ -11,7 +11,7 @@ RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduse
 
 # Install gosu
 RUN apt-get -y install curl \
-    && curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.11/gosu-$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
+    && curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.17/gosu-$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
     && chmod +x /usr/local/bin/gosu \
     && gosu nobody true
 
