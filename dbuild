@@ -1,0 +1,17 @@
+#/bin/bash
+EXEC=$1
+LOCAL_TOOLCHAIN_DIR=~/buildroot/buildroot-2023.02.8
+REMOTE_TOOLCHAIN_DIR=/work/buildroot/buildroot-2023.02.8
+BUILD_ROOT_OPT=" -v $(realpath ${LOCAL_TOOLCHAIN_DIR}):${REMOTE_TOOLCHAIN_DIR}"
+INITCMD="-c \"/work/${EXEC}\""
+
+#run as your UID or root
+#USER_ID=0
+USER_ID=$(id -u)
+
+DOCKER_IMAGE=ubuntu_dev:22
+docker build --tag ${DOCKER_IMAGE} https://github.com/hanger0106/ubuntu_dev.git#main:.
+
+DOCKER_RUN="docker run -it --rm  -e USER_NAME=user -e USER_ID=${USER_ID} ${BUILD_ROOT_OPT} ${VOL_OPT} -v ${PWD}:/work ${DOCKER_IMAGE}"
+$DOCKER_RUN bash ${INITCMD}
+

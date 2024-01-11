@@ -1,0 +1,12 @@
+#/bin/bash
+#git config --global user.name "simon_shih"
+#git config --global user.email simon_shih@accton.com
+#git config --global credential.helper store
+#git config --global http.sslVerify false
+#cd ttv_hermes_64x100g/diag
+#cd board/hermes/
+#source ./init_build_env
+#cd -
+#make hermes
+bash
+
