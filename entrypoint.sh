@@ -9,6 +9,6 @@ else
     #Not defaul user
     userdel -r user
     useradd --shell /bin/bash --home-dir $WORKDIR -u $ID $USER
-    usermod -u $ID $USER
+    adduser $USER sudo
     exec gosu $ID "$@"
 fi
