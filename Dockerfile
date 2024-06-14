@@ -4,8 +4,8 @@ ARG WORKDIR="/work"
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python unzip rsync tzdata 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libssl-dev gawk device-tree-compiler autoconf sbsigntool default-jdk flex bison 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common 
-
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-software-properties=0.96.20.10 software-properties-common=0.96.20.10
+ 
 RUN apt-get clean all
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo
@@ -40,4 +40,4 @@ RUN chmod 777 /opt
 #DOCKER_IMAGE=ubuntu_dev:16
 #docker build --tag ${DOCKER_IMAGE} .
 #docker build --tag ${DOCKER_IMAGE} https://github.com/hanger0106/ubuntu_dev.git#16.04:.
-#docker run -it --rm  -v /tmp:/tmp -e USER_ID=1003 -e USER_NAME="user" ${DOCKER_IMAGE} bash
+#docker run -it --rm  -v /tmp:/tmp -e USER_ID=1000 -e USER_NAME="user" ${DOCKER_IMAGE} bash
