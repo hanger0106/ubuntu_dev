@@ -4,7 +4,7 @@ ARG WORKDIR="/work"
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python unzip rsync tzdata 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libssl-dev gawk device-tree-compiler autoconf sbsigntool default-jdk flex bison 
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-software-properties=0.96.20.10 software-properties-common=0.96.20.10
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-software-properties=0.96.20.10 software-properties-common=0.96.20.10;exit 0
  
 RUN apt-get clean all
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
@@ -20,7 +20,7 @@ RUN apt-get -y install curl \
 RUN TZ=Asia/Taipei \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
-    && dpkg-reconfigure -f noninteractive tzdata
+    && dpkg-reconfigure -f noninteractive tzdatals 
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
 
 # make /bin/sh symlink to bash instead of dash:
