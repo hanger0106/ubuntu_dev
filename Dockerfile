@@ -12,7 +12,7 @@ RUN apt-get -y install curl \
     && chmod +x /usr/local/bin/gosu \
     && gosu nobody true
 #Fix me when package available    
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-software-properties=0.96.20.10 software-properties-common=0.96.20.10
+RUN apt-get update;DEBIAN_FRONTEND=noninteractive apt-get install -y python3-software-properties=0.96.20.10 software-properties-common=0.96.20.10
     
 RUN apt-get clean all
 #default user
