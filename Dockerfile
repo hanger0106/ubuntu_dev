@@ -5,14 +5,14 @@ RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y \
     apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev \
     wget cpio python unzip rsync tzdata libssl-dev gawk device-tree-compiler autoconf \
-    sbsigntool default-jdk flex bison
+    sbsigntool default-jdk flex bison python3
 # Install gosu
 RUN apt-get -y install curl \
     && curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.17/gosu-$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
     && chmod +x /usr/local/bin/gosu \
     && gosu nobody true
 #Fix me when package available    
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3 python3-software-properties=0.96.20.10 software-properties-common=0.96.20.10
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y python3-software-properties=0.96.20.10 software-properties-common=0.96.20.10
     
 RUN apt-get clean all
 #default user
