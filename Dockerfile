@@ -20,7 +20,7 @@ RUN apt-get -y install curl \
 RUN TZ=Asia/Taipei \
     && ln -snf /usr/share/zoneinfo/$TZ /etc/localtime \
     && echo $TZ > /etc/timezone \
-    && dpkg-reconfigure -f noninteractive tzdatals 
+    && dpkg-reconfigure --frontend noninteractive tzdata
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
 
 # make /bin/sh symlink to bash instead of dash:
