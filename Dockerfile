@@ -11,8 +11,9 @@ RUN apt-get -y install curl \
     && curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.17/gosu-$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
     && chmod +x /usr/local/bin/gosu \
     && gosu nobody true
-#Fix me when package available    
-RUN apt-get update;DEBIAN_FRONTEND=noninteractive apt-get install -y python3-software-properties=0.96.20.10 software-properties-common=0.96.20.10
+#Fix me when package available 
+RUN apt-get update;DEBIAN_FRONTEND=noninteractive apt-get install -y python3-software-properties software-properties-common
+#RUN apt-get update;DEBIAN_FRONTEND=noninteractive apt-get install -y python3-software-properties=0.96.20.10 software-properties-common=0.96.20.10
     
 RUN apt-get clean all
 #default user
