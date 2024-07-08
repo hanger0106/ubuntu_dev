@@ -1,6 +1,6 @@
 #!/bin/bash
 DEFAULT_USER=user
-USER=${USER_NAME}
+USER=${USER_NAME:-user}
 
 ID=${USER_ID:-1000}
 
