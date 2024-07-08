@@ -1,10 +1,15 @@
 #!/bin/bash
+DEFAULT_USER=user
+USER=${USER_NAME}
 
-USER=${USER_NAME:-user}
 ID=${USER_ID:-1000}
 
 if [ $ID -eq `id -u` ]; then
     exec "$@"
+elif [ "$USER" == "$DEFAULT_USER"  ]; then
+    #Not defaul uid
+    usermod -u ${ID} ${USER}
+    exec gosu $ID "$@"
 else
     #Not defaul user
     userdel user
