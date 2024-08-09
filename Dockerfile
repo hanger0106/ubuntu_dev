@@ -4,8 +4,7 @@ ARG WORKDIR="/work"
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python2 python3 python3-pip python3-pexpect unzip rsync tzdata
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common libssl-dev gawk device-tree-compiler autoconf sbsigntool flex bison
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y default-jdk
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y clang
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y default-jdk clang
 RUN apt-get clean all
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo
