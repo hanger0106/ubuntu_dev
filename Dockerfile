@@ -1,8 +1,8 @@
-# Start with Ubuntu 22.04 LTS.
-FROM ubuntu:22.04
+# Start with Ubuntu 24.04 LTS.
+FROM ubuntu:24.04
 ARG WORKDIR="/work"
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5 libncurses5-dev wget cpio python2 python3 python3-pip python3-pexpect unzip rsync tzdata libtool software-properties-common libssl-dev gawk device-tree-compiler autoconf sbsigntool flex bison
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python3 python3-pip python3-pexpect unzip rsync tzdata libtool software-properties-common libssl-dev gawk device-tree-compiler autoconf sbsigntool flex bison
 
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo
