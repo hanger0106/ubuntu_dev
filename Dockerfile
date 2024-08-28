@@ -2,7 +2,7 @@
 FROM ubuntu:22.04
 ARG WORKDIR="/work"
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python2 python3 python3-pip python3-pexpect unzip rsync tzdata
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python2 python3 python3-pip python3-pexpect unzip rsync tzdata libtool
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common libssl-dev gawk device-tree-compiler autoconf sbsigntool flex bison
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y file fdisk libncurses5 libnl-3-dev libnl-genl-3-dev
 
