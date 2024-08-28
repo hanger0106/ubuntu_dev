@@ -4,10 +4,10 @@
     git clone https://github.com/hanger0106/ubuntu_dev.git
     
 ### build docker image from git:
-    docker build --tag ubuntu_dev https://github.com/hanger0106/ubuntu_dev.git#main:.    
+    docker build --tag ubuntu_dev:22.04 https://github.com/hanger0106/ubuntu_dev.git#22.04:.
 
 ### build docker image from local:
-    docker build --tag ubuntu_dev .
+    docker build --tag ubuntu_dev:22.04 .
     
 ### docker run command:
     docker run -it --rm  -e USER_ID=${UID} ubuntu_dev bash
