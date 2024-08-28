@@ -2,11 +2,8 @@
 FROM ubuntu:22.04
 ARG WORKDIR="/work"
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python2 python3 python3-pip python3-pexpect unzip rsync tzdata libtool
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common libssl-dev gawk device-tree-compiler autoconf sbsigntool flex bison
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y file fdisk libncurses5 libnl-3-dev libnl-genl-3-dev
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5 libncurses5-dev wget cpio python2 python3 python3-pip python3-pexpect unzip rsync tzdata libtool software-properties-common libssl-dev gawk device-tree-compiler autoconf sbsigntool flex bison
 
-RUN apt-get clean all
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo
 
@@ -26,6 +23,9 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && loca
 # make /bin/sh symlink to bash instead of dash:
 RUN echo "dash dash/sh boolean false" | debconf-set-selections
 RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
+
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y file fdisk libnl-3-dev libnl-genl-3-dev
+RUN apt-get clean all
 
 # ENTRYPOINT
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh 
