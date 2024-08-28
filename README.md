@@ -4,7 +4,7 @@
     git clone https://github.com/hanger0106/ubuntu_dev.git
     
 ### build docker image from git:
-    docker build --tag ubuntu_dev https://github.com/hanger0106/ubuntu_dev.git#main:.    
+    docker build --tag ubuntu_dev:16.04_386 https://github.com/hanger0106/ubuntu_dev.git#16.04_386:.
 
 ### build docker image from local:
     docker build --tag ubuntu_dev .
