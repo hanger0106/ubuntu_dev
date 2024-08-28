@@ -22,9 +22,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && loca
 
 # make /bin/sh symlink to bash instead of dash:
 RUN echo "dash dash/sh boolean false" | debconf-set-selections
-RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
-
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y file fdisk libnl-3-dev libnl-genl-3-dev
+RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash file fdisk libnl-3-dev libnl-genl-3-dev
 RUN apt-get clean all
 
 # ENTRYPOINT
