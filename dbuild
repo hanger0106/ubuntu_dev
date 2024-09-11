@@ -10,7 +10,7 @@ INITCMD="-c \"/work/${EXEC}\""
 USER_ID=$(id -u)
 
 DOCKER_IMAGE=ubuntu_dev:22
-docker build --tag ${DOCKER_IMAGE} https://github.com/hanger0106/ubuntu_dev.git#main:.
+docker build --tag ${DOCKER_IMAGE} https://github.com/hanger0106/ubuntu_dev.git#22.04:.
 
 DOCKER_RUN="docker run -it --rm  -e USER_NAME=user -e USER_ID=${USER_ID} ${BUILD_ROOT_OPT} ${VOL_OPT} -v ${PWD}:/work ${DOCKER_IMAGE}"
 $DOCKER_RUN bash ${INITCMD}
