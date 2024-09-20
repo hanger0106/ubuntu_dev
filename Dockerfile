@@ -25,7 +25,7 @@ RUN echo "dash dash/sh boolean false" | debconf-set-selections
 RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 
 #Add package here
-RUN DEBIAN_FRONTEND=noninteractive file fdisk libnl-3-dev libnl-genl-3-dev liblzma-dev
+RUN DEBIAN_FRONTEND=noninteractive file fdisk libnl-3-dev libnl-genl-3-dev
 
 RUN apt-get clean all
 
