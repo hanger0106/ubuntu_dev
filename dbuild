@@ -4,6 +4,7 @@ LOCAL_TOOLCHAIN_DIR=~/buildroot/buildroot-2023.02.8
 REMOTE_TOOLCHAIN_DIR=/work/buildroot/buildroot-2023.02.8
 BUILD_ROOT_OPT=" -v $(realpath ${LOCAL_TOOLCHAIN_DIR}):${REMOTE_TOOLCHAIN_DIR}"
 INITCMD="-c \"/work/${EXEC}\""
+[ ! -z $EXEC ] ||  INITCMD=
 
 #run as your UID or root
 #USER_ID=0
