@@ -49,6 +49,8 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python2 1 \
 
 #Other project depend package
 #lsdk2108
+RUN apt-get clean
+RUN apt-get update
 RUN apt-get install -y \
         u-boot-tools device-tree-compiler autoconf automake dh-autoreconf libssl-dev zip \
         openssl curl flex bison bc git gcc vim ethtool wget ftp make makedev tclsh ccache \
