@@ -48,6 +48,21 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python2 1 \
     && update-alternatives --set python /usr/bin/python3
 
 #Other project depend package
+#lsdk2108
+RUN apt-get install -y \
+        u-boot-tools device-tree-compiler autoconf automake dh-autoreconf libssl-dev zip \
+        openssl curl flex bison bc git gcc vim ethtool wget ftp make makedev tclsh ccache \
+        binfmt-support qemu-system-common qemu-user-static debootstrap sudo ncurses-dev  \
+        gcc-arm-linux-gnueabihf crossbuild-essential-arm64 gcc-aarch64-linux-gnu file    \
+        build-essential gdb u-boot-tools device-tree-compiler python3 python3-dev python3-pip \
+        libxml2-dev libsensors4-dev libssl-dev libedit-dev liblzma-dev tree binutils-dev \
+        libnuma-dev libpcap-dev libtool mtd-utils libncurses5-dev libelf-dev net-tools   \
+        libcunit1-dev pkg-config autotools-dev crossbuild-essential-armhf openssh-server \
+        openssh-client crossbuild-essential-armhf qemu-utils kmod g++-aarch64-linux-gnu  \
+        cpp-arm-linux-gnueabihf dosfstools ruby iputils-ping cpio rsync libtclap-dev     \
+        parted rpm2cpio lsb-release xutils-dev libwayland-bin cmake locales texinfo gawk \
+        chrpath diffstat scons libgflags-dev libhdf5-serial-dev python3-numpy python3-wheel \
+        python3-h5py elfutils  python3-pyelftools pandoc
 RUN chmod 777 /opt
     
 #example usage:
