@@ -30,8 +30,8 @@ WORKDIR $WORKDIR
 ENV WORKDIR=$WORKDIR
 
 # make /bin/sh symlink to bash instead of dash:
-#RUN echo "dash dash/sh boolean false" | debconf-set-selections
-#RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
+RUN echo "dash dash/sh boolean false" | debconf-set-selections
+RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 
 #python3 package
 RUN python3 -m pip install cryptography pyyaml filelock
