@@ -76,7 +76,7 @@ RUN wget -q ${GO_BINARY_URL} -O go.tar.gz && \
 ENV PATH="/usr/local/go/bin:${PATH}"
 ENV GOPATH="/go"
 ENV PATH="${GOPATH}/bin:${PATH}"
-RUN chmod 777 ${GOPATH}
+RUN mkdir -p /go && chmod 777 /go
 # --- end install Go lang ---
 #example usage:
 #DOCKER_IMAGE=ubuntu_dev
