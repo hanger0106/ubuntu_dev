@@ -73,9 +73,9 @@ RUN wget -q ${GO_BINARY_URL} -O go.tar.gz && \
     tar -C /usr/local -xzf go.tar.gz && \
     rm go.tar.gz
 
-ENV PATH="/usr/local/go/bin:${PATH}" \
-    GOPATH="/go" \
-    PATH="/go/bin:${PATH}"
+ENV PATH="/usr/local/go/bin:${PATH}"
+ENV GOPATH="/go"
+ENV PATH="${GOPATH}/bin:${PATH}"
 # --- end install Go lang ---
 #example usage:
 #DOCKER_IMAGE=ubuntu_dev
