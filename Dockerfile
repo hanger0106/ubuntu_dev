@@ -65,9 +65,18 @@ RUN apt-get install -y \
         parted rpm2cpio lsb-release xutils-dev libwayland-bin cmake locales texinfo gawk \
         chrpath diffstat scons libgflags-dev libhdf5-serial-dev python3-numpy python3-wheel \
         python3-h5py elfutils  python3-pyelftools pandoc
-RUN apt install -y golang-go
 RUN chmod 777 /opt
-    
+# --- install Go lang ---
+ARG GO_VERSION=1.22.3
+ARG GO_BINARY_URL=https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
+RUN wget -q ${GO_BINARY_URL} -O go.tar.gz && \
+    tar -C /usr/local -xzf go.tar.gz && \
+    rm go.tar.gz
+
+ENV PATH="/usr/local/go/bin:${PATH}" \
+    GOPATH="/go" \
+    PATH="/go/bin:${PATH}"
+# --- end install Go lang ---
 #example usage:
 #DOCKER_IMAGE=ubuntu_dev
 #docker build --tag ${DOCKER_IMAGE} .
