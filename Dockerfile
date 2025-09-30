@@ -25,8 +25,10 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && loca
 RUN echo "dash dash/sh boolean false" | debconf-set-selections
 RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 
-#Add package here
-RUN DEBIAN_FRONTEND=noninteractive file fdisk libnl-3-dev libnl-genl-3-dev libarchive-zip-perl
+# Add package here
+RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
+    apt-get install -y fdisk libnl-3-dev libnl-genl-3-dev libarchive-zip-perl && \
+    rm -rf /var/lib/apt/lists/*
 # ENTRYPOINT
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh 
 RUN chmod +x /usr/local/bin/entrypoint.sh
