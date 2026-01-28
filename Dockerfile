@@ -52,6 +52,7 @@ RUN update-alternatives --install /usr/bin/python python /usr/bin/python2 1 \
 RUN apt-get clean
 RUN apt-get update
 RUN apt-get install -y \
+        gettext autopoint \
         u-boot-tools device-tree-compiler autoconf automake dh-autoreconf libssl-dev zip \
         openssl curl flex bison bc git gcc vim ethtool wget ftp make makedev tclsh ccache \
         binfmt-support qemu-system-common qemu-user-static debootstrap sudo ncurses-dev  \
