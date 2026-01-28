@@ -34,7 +34,7 @@ RUN echo "dash dash/sh boolean false" | debconf-set-selections
 RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 
 #python3 package
-RUN python3 -m pip install cryptography pyyaml filelock
+RUN python3 -m pip install cryptography pyyaml filelock meson==0.56.2 pyelftools
 
 #perl package
 RUN apt-get install -y libclone-perl libyaml-perl libmoo-perl liblist-moreutils-perl libdata-compare-perl libmoosex-role-strict-perl libnamespace-autoclean-perl
