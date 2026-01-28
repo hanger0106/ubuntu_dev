@@ -37,7 +37,7 @@ RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 RUN python3 -m pip install cryptography pyyaml filelock meson==0.56.2 pyelftools
 
 #perl package
-RUN apt-get install -y libclone-perl libyaml-perl libmoo-perl liblist-moreutils-perl libdata-compare-perl libmoosex-role-strict-perl libnamespace-autoclean-perl
+RUN apt-get install -y libclone-perl libyaml-perl libmoo-perl liblist-moreutils-perl libdata-compare-perl libmoosex-role-strict-perl libnamespace-autoclean-perl libjson-xs-perl
 
 #python2 package
 #RUN apt-get install -y python-yaml 
