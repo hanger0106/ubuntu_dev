@@ -3,7 +3,7 @@ FROM ubuntu:22.04
 ARG WORKDIR="/work"
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses-dev wget cpio python3 python3-pip python3-pexpect unzip rsync tzdata libtool software-properties-common libssl-dev gawk device-tree-compiler autoconf sbsigntool flex bison tree && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses-dev wget cpio python3 python3-venv python3-pip python3-pexpect unzip rsync tzdata libtool software-properties-common libssl-dev gawk device-tree-compiler autoconf sbsigntool flex bison tree && \
     apt-get clean all
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo
