@@ -2,9 +2,9 @@
 FROM i386/ubuntu:16.04
 ARG WORKDIR="/work"
 
-# 修正 Ubuntu 16.04 來源，精簡化並改用 old-releases，拿掉容易失效的 updates/backports 避免 404
-RUN echo "deb http://old-releases.ubuntu.com/ubuntu/ xenial main universe multiverse restricted" > /etc/apt/sources.list && \
-    echo "deb http://old-releases.ubuntu.com/ubuntu/ xenial-security main universe multiverse restricted" >> /etc/apt/sources.list
+# 修正 16.04 i386 在 old-releases 上的架構指定與來源
+RUN echo "deb [arch=i386] http://old-releases.ubuntu.com/ubuntu/ xenial main universe multiverse restricted" > /etc/apt/sources.list && \
+    echo "deb [arch=i386] http://old-releases.ubuntu.com/ubuntu/ xenial-security main universe multiverse restricted" >> /etc/apt/sources.list
 
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python unzip rsync tzdata bison python3 make
