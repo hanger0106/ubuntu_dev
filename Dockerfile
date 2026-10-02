@@ -1,18 +1,28 @@
 # Start with Ubuntu LTS.
 FROM i386/ubuntu:16.04
 ARG WORKDIR="/work"
+
+# 修正 Ubuntu 16.04 進入 Archive（舊版本移至 old-releases）
+RUN sed -i -e 's/archive.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list \
+    && sed -i -e 's/security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
+
 RUN apt-get update
-RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python unzip rsync tzdata bison python3
+RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python unzip rsync tzdata bison python3 make
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libssl-dev gawk device-tree-compiler autoconf sbsigntool flex pkg-config libtool liblz4-tool
-RUN apt-get clean all
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# 建立 gmake 的 symbolic link
+RUN ln -s /usr/bin/make /usr/bin/gmake
+
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo
 
 # Install gosu
-RUN apt-get -y install curl \
-    && curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.17/gosu-$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
+RUN apt-get update && apt-get -y install curl \
+    && curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.17/gosu-i386" \
     && chmod +x /usr/local/bin/gosu \
-    && gosu nobody true
+    && gosu nobody true \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Config TimeZone
 RUN TZ=Asia/Taipei \
@@ -32,7 +42,7 @@ ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD [ "/bin/bash" ]
 WORKDIR $WORKDIR
 ENV WORKDIR=$WORKDIR
-RUN chmod 777 /opt
+RUN mkdir -p /opt && chmod 777 /opt
 
 #default commiter
 RUN git config --global user.email "root@project"
