@@ -16,9 +16,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN ln -s /usr/bin/make /usr/bin/gmake
 
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-# 強制刪除可能存在的舊帳號，然後全新建立 user
-RUN userdel -r user 2>/dev/null || true
-RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo
+# 新建立 user
+RUN id -u user >/dev/null 2>&1 || (useradd -m -d $WORKDIR user && echo "user:user" | chpasswd && adduser user sudo)
 
 # Install gosu
 RUN apt-get update && apt-get -y install curl \
