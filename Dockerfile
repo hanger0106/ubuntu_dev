@@ -15,7 +15,8 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN ln -s /usr/bin/make /usr/bin/gmake
 
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo
+# 檢查 user 是否存在，若不存在才建立，避免重複建立報錯
+RUN id -u user &>/dev/null || (useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo)
 
 # Install gosu
 RUN apt-get update && apt-get -y install curl \
