@@ -2,10 +2,11 @@
 FROM i386/ubuntu:16.04
 ARG WORKDIR="/work"
 
-# 修正 16.04 i386 在 old-releases 上的架構指定與來源
-RUN echo "deb [arch=i386] http://old-releases.ubuntu.com/ubuntu/ xenial main universe multiverse restricted" > /etc/apt/sources.list && \
-    echo "deb [arch=i386] http://old-releases.ubuntu.com/ubuntu/ xenial-security main universe multiverse restricted" >> /etc/apt/sources.list
-
+# 將 16.04 i386 來源導向備用或兼容的鏡像站點
+RUN echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ xenial main universe multiverse restricted" > /etc/apt/sources.list && \
+    echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ xenial-updates main universe multiverse restricted" >> /etc/apt/sources.list && \
+    echo "deb [arch=i386] http://archive.ubuntu.com/ubuntu/ xenial-security main universe multiverse restricted" >> /etc/apt/sources.list
+    
 RUN apt-get update
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-utils build-essential sudo git libelf-dev bc vim locales libncurses5-dev wget cpio python unzip rsync tzdata bison python3 make
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y libssl-dev gawk device-tree-compiler autoconf sbsigntool flex pkg-config libtool liblz4-tool
