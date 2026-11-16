@@ -1,4 +1,19 @@
 # Start with Ubuntu 20.04 LTS.
+# ---------------------------------------------------------------------------
+# NOTE (2026-11-16): this is the upstream Dockerfile from
+#   https://github.com/hanger0106/ubuntu_dev (branch 20.04)
+# with the three *external downloads* made tolerant of a TLS-inspecting proxy
+# (corporate MITM -> "SSL certificate problem: self signed certificate in
+# certificate chain" inside the container):
+#   1. gosu   : curl -k  (and the build continues if the download fails)
+#   2. Go     : wget --no-check-certificate (and the build continues on failure;
+#               the ECS2100 project does not need Go any more)
+#   3. pip    : --trusted-host pypi.org/files.pythonhosted.org (continues on failure)
+# If you *do* have the corporate CA bundle, prefer baking it in instead:
+#   COPY corp-ca.crt /usr/local/share/ca-certificates/corp-ca.crt
+#   RUN update-ca-certificates
+# and keep strict TLS (drop the -k / --no-check-certificate below).
+# ---------------------------------------------------------------------------
 FROM ubuntu:20.04
 ARG WORKDIR="/work"
 RUN apt-get update --fix-missing
@@ -9,10 +24,11 @@ RUN echo 'user ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo '%sudo ALL=(ALL:ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN useradd -m user --home-dir $WORKDIR && echo "user:user" | chpasswd && adduser user sudo
 
-# Install gosu
-RUN  curl -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.17/gosu-$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
+# Install gosu (tolerant: the image stays usable without it, see entrypoint.sh)
+RUN  curl -k -o /usr/local/bin/gosu -SL "https://github.com/tianon/gosu/releases/download/1.17/gosu-$(dpkg --print-architecture | awk -F- '{ print $NF }')" \
     && chmod +x /usr/local/bin/gosu \
-    && gosu nobody true
+    && gosu nobody true \
+    || echo "WARN: gosu could not be downloaded -- run the container with USER_ID=0, entrypoint.sh falls back to setpriv"
 
 # Config TimeZone
 RUN TZ=Asia/Taipei \
@@ -22,7 +38,7 @@ RUN TZ=Asia/Taipei \
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && locale-gen
 
 # ENTRYPOINT
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh 
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD [ "/bin/bash" ]
@@ -33,14 +49,17 @@ ENV WORKDIR=$WORKDIR
 RUN echo "dash dash/sh boolean false" | debconf-set-selections
 RUN DEBIAN_FRONTEND=noninteractive dpkg-reconfigure dash
 
-#python3 package
-RUN python3 -m pip install cryptography pyyaml filelock meson==0.56.2 pyelftools
+#python3 package (tolerant of a MITM proxy too)
+RUN python3 -m pip install \
+        --trusted-host pypi.org --trusted-host files.pythonhosted.org --trusted-host pypi.python.org \
+        cryptography pyyaml filelock meson==0.56.2 pyelftools \
+    || echo "WARN: python3 -m pip install failed -- continuing"
 
 #perl package
 RUN apt-get install -y libclone-perl libyaml-perl libmoo-perl liblist-moreutils-perl libdata-compare-perl libmoosex-role-strict-perl libnamespace-autoclean-perl libjson-xs-perl
 
 #python2 package
-#RUN apt-get install -y python-yaml 
+#RUN apt-get install -y python-yaml
 
 ##make python3 default
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python2 1 \
@@ -67,12 +86,14 @@ RUN apt-get install -y \
         chrpath diffstat scons libgflags-dev libhdf5-serial-dev python3-numpy python3-wheel \
         python3-h5py elfutils  python3-pyelftools pandoc
 RUN chmod 777 /opt
-# --- install Go lang ---
+# --- install Go lang (optional for this project; a blocked go.dev must not
+#     break the image build) ---
 ARG GO_VERSION=1.22.3
 ARG GO_BINARY_URL=https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz
-RUN wget -q ${GO_BINARY_URL} -O go.tar.gz && \
-    tar -C /usr/local -xzf go.tar.gz && \
-    rm go.tar.gz
+RUN ( wget -q --no-check-certificate ${GO_BINARY_URL} -O go.tar.gz \
+      && tar -C /usr/local -xzf go.tar.gz \
+      && rm -f go.tar.gz ) \
+    || echo "WARN: Go could not be downloaded -- not needed by the ECS2100 build"
 
 ENV PATH="/usr/local/go/bin:${PATH}"
 ENV GOPATH="/go"
@@ -84,3 +105,4 @@ RUN mkdir -p /go && chmod 777 /go
 #docker build --tag ${DOCKER_IMAGE} .
 #docker build --tag ${DOCKER_IMAGE} https://github.com/hanger0106/ubuntu_dev.git#20.04:.
 #docker run -it --rm  -v /tmp:/tmp -e USER_ID=$(id -u) -e USER_NAME="user" ${DOCKER_IMAGE} bash
+ 
